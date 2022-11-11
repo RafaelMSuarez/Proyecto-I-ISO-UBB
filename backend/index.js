@@ -27,7 +27,7 @@ const options = {
   useUnifiedTopology: true,
 };
 
-mongoose.connect(process.env.DB, (error) => {
+mongoose.connect(process.env.DB, options, (error) => {
   if (error) {
     console.log(error);
   } else {
