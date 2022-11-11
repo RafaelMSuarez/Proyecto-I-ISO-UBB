@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 const postSchema = new Schema({
   user: {
     type: Schema.ObjectId,
-    ref: "User",
+    ref: "user",
   },
   title: {
     type: String,
@@ -35,4 +35,4 @@ const postSchema = new Schema({
   },
 });
 
-module.exports = mongoose.model('post', postSchema);
+module.exports = mongoose.model("post", postSchema);
