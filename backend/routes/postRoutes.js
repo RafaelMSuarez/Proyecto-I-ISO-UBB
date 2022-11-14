@@ -10,6 +10,8 @@ api.put("/post/likepost/:id", postController.likePost);
 api.put("/post/likemenospost/:id", postController.likeMenosPost);
 api.put("/post/dislike/:id", postController.dislikePost);
 api.put("/post/dislikemenospost/:id", postController.dislikeMenosPost);
+api.put("/post/updatenumcomment/:id", postController.newComment)
+api.put("/post/updatenumcommentdeleted/:id", postController.commentDeleted)
 api.put("/post/update/:id", postController.updatePost);
 api.put("/post/report/:id", postController.reportPost);
 

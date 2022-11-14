@@ -5,6 +5,7 @@ const createComment = (req, res) => {
   const { user, title, desc, likes, dislike } = req.body;
   const newComment = new Comment({
     user,
+    post,
     desc,
     likes,
     dislike,

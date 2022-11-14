@@ -198,6 +198,42 @@ const dislikeMenosPost = (req, res) => {
   });
 };
 
+// se realiza un comentario
+const newComment = (req, res) => {
+  const { id } = req.params;
+  Post.findByIdAndUpdate(id, { $inc: { numComments: 1 } }, (err, post) => {
+    if (err) {
+      return res
+        .status(400)
+        .send({ message: "No se pudo actualizar la publicación" });
+    }
+    if (!post) {
+      return res.status(404).send({ message: "No se encontro la publicación" });
+    }
+    return res
+      .status(200)
+      .send({ message: "Numero de comentarios actualizado" });
+  });
+};
+
+// se realiza un comentario
+const commentDeleted = (req, res) => {
+  const { id } = req.params;
+  Post.findByIdAndUpdate(id, { $inc: { numComments: -1 } }, (err, post) => {
+    if (err) {
+      return res
+        .status(400)
+        .send({ message: "No se pudo actualizar la publicación" });
+    }
+    if (!post) {
+      return res.status(404).send({ message: "No se encontro la publicación" });
+    }
+    return res
+      .status(200)
+      .send({ message: "Numero de comentarios actualizado" });
+  });
+};
+
 module.exports = {
   createPost,
   updatePost,
@@ -210,4 +246,6 @@ module.exports = {
   likeMenosPost,
   dislikePost,
   dislikeMenosPost,
+  newComment,
+  commentDeleted,
 };

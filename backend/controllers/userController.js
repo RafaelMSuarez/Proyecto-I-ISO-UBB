@@ -76,10 +76,10 @@ const getUser = (req, res) => {
   });
 };
 
-// //obtener un usuario por nombre
+// // obtener un usuario por nombre
 // const getUserbyName = (req, res) => {
-//   const { name } = req.params;
-//   User.findOne({ name: name }, (err, user) => {
+//   const { nombre } = req.params;
+//   User.findOne({ name: nombre }, (err, user) => {
 //     if (err) {
 //       return res
 //         .status(400)
