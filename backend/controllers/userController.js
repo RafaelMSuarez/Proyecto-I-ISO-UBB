@@ -76,42 +76,6 @@ const getUser = (req, res) => {
   });
 };
 
-// // obtener un usuario por nombre
-// const getUserbyName = (req, res) => {
-//   const { nombre } = req.params;
-//   User.findOne({ name: nombre }, (err, user) => {
-//     if (err) {
-//       return res
-//         .status(400)
-//         .send({ message: "No se pudo realizar la busqueda" });
-//     }
-//     if (!user) {
-//       return res
-//         .status(400)
-//         .send({ message: "No se pudo encontrar el usuario" });
-//     }
-//     return res.status(200).send(user);
-//   });
-// };
-
-// //obtener un usuario por rut
-// const getUserbyRut = (req, res) => {
-//   const { rut } = req.params;
-//   User.findOne({ rut: rut }, (err, user) => {
-//     if (err) {
-//       return res
-//         .status(400)
-//         .send({ message: "No se pudo realizar la busqueda" });
-//     }
-//     if (!user) {
-//       return res
-//         .status(400)
-//         .send({ message: "No se pudo encontrar el usuario" });
-//     }
-//     return res.status(200).send(user);
-//   });
-// }
-
 //obtener todos los usuarios
 const getUsers = (req, res) => {
   User.find({}, (err, users) => {
