@@ -10,7 +10,7 @@
 - [x] cuando se ingresa un post, se verifica que exista el usuario.
 - [x] cuando se elimina un post, se reduce el numero de post del usuario.
 - [x] se verifica el numero actual de post del usuario, antes de enviar el post a db.
-- [ ] añadir la funcion de poner imagenes.
+- [x] añadir la funcion de poner imagenes.
 - [ ] enviar correos cada vez que un post en reportado (hacer solamente la parte del envio del correo, el reporte es frontend)
 
 ### COMENTARIOS:
