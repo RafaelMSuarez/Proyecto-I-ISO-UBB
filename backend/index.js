@@ -8,6 +8,7 @@ dotenv.config();
 const commentRoutes = require("./routes/commentRoutes.js");
 const postRoutes = require("./routes/postRoutes.js");
 const userRoutes = require("./routes/userRoutes.js");
+const fileRoute = require("./routes/fileRoutes.js");
 
 app.use(cors());
 app.use(express.json());
@@ -16,6 +17,7 @@ app.options("*", cors());
 app.use("/api", commentRoutes);
 app.use("/api", postRoutes);
 app.use("/api", userRoutes);
+app.use("/api", fileRoutes);
 
 const options = {
   useNewUrlParser: true,
