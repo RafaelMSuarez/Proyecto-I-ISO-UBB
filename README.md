@@ -15,6 +15,7 @@
 - [x] se verifica el numero actual de post del usuario, antes de enviar el post a db.
 - [x] añadir la funcion de poner imagenes.
 - [ ] enviar correos cada vez que un post en reportado (hacer solamente la parte del envio del correo, el reporte es frontend)
+- [ ] tambien se envia correo al usuario, cuando su post ha sido reiteradamente reportado (3+)
 
 ### COMENTARIOS:
 
