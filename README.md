@@ -5,6 +5,7 @@
 - [ ] verificar que cuando se ingrese un usuario no exista el rut actualmente.
 - [ ] verificar que el rut ingresado sea un rut (expresión regular)
 - [ ] verificar que el email sea un email.
+- [ ] agregar el telefono al modelo. ( y cambiar controladores )
 
 ### POST:
 
