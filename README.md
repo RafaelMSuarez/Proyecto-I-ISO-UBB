@@ -6,6 +6,7 @@
 - [ ] verificar que el rut ingresado sea un rut (expresión regular)
 - [ ] verificar que el email sea un email.
 - [ ] agregar el telefono al modelo. ( y cambiar controladores )
+- [ ] admin puede banear a un usuario ( cambiar controlador y modelo )
 
 ### POST:
 
@@ -18,6 +19,8 @@
 - [ ] tambien se envia correo al usuario, cuando su post ha sido reiteradamente reportado (3+)
 - [ ] el usuario que postea elige el tiempo de vida (min 3 dias maximo 7)
 - [ ] revisar si hay titulos repetidos.
+- [ ] verificar que el usuario no tenga ban.
+- [ ] publicaciones con más de 3 reportes no aparecen en la lista comun ( modificar controlador -> sort )
 
 ### COMENTARIOS:
 
