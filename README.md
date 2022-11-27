@@ -6,7 +6,7 @@
 - [ ] verificar que el rut ingresado sea un rut (expresión regular)
 - [ ] verificar que el email sea un email.
 - [x] agregar el telefono al modelo. ( y cambiar controladores )
-- [ ] admin puede banear a un usuario ( cambiar controlador y modelo )
+- [x] admin puede banear a un usuario ( cambiar controlador y modelo )
 
 ### POST:
 
