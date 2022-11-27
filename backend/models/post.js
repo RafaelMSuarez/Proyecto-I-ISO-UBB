@@ -21,17 +21,21 @@ const postSchema = new Schema(
     },
     likes: {
       type: Number,
-      required: true,
+      default: 0,
     },
     dislikes: {
       type: Number,
-      required: true,
+      default: 0,
     },
     reports: {
       type: Number,
-      required: true,
+      default: 0,
     },
     numComments: {
+      type: Number,
+      default: 0,
+    },
+    lifeTime: {
       type: Number,
       required: true,
     },

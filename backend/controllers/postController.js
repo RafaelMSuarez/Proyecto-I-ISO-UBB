@@ -2,46 +2,63 @@ const Post = require("../models/post.js");
 const User = require("../models/user.js");
 
 //crea un post
-const createPost = (req, res) => {
-  const { user, title, desc, likes, dislikes, reports, numComments } = req.body;
+const createPost = async (req, res) => {
+  const { user, title, desc, likes, dislikes, reports, numComments, lifeTime } =
+    req.body;
   const newPost = new Post({
     user,
     title,
     desc,
-    likes,
-    dislikes,
-    reports,
-    numComments,
+    lifeTime,
   });
-  User.findById(user)
+  Post.findOne({ title: newPost.title })
     .lean()
-    .exec(async (err, user) => {
+    .exec((err, post) => {
       if (err) {
-        return res
-          .status(400)
-          .send({ message: "No se ha podido encontrar el usuario" });
+        return res.status(403).send({ message: "Error de título" });
       }
-      if (!user) {
-        return res
-          .status(404)
-          .send({ message: "No se ha podido encontrar el usuario" });
+      if (post) {
+        return res.status(400).send({ message: "Título repetido" });
       }
-      if (user.numpost >= 5) {
-        return res
-          .status(404)
-          .send({ message: "Número de publicaciones excedido" });
-      }
-      if (user.numpost < 5) {
-        await User.findByIdAndUpdate(user._id, { $inc: { numpost: 1 } });
-        newPost.save(async (err, post) => {
+      User.findById(user)
+        .lean()
+        .exec(async (err, user) => {
           if (err) {
             return res
               .status(400)
-              .send({ message: "No se ha podido crear la publicación" });
+              .send({ message: "No se ha podido encontrar el usuario" });
           }
-          return res.status(201).send(post);
+          if (!user) {
+            return res
+              .status(404)
+              .send({ message: "No se ha podido encontrar el usuario" });
+          }
+          if (user.banned) {
+            return res
+              .status(403)
+              .send({ message: "Usuario no disponible para publicar" });
+          }
+          if (user.numpost >= 5) {
+            return res
+              .status(404)
+              .send({ message: "Número de publicaciones excedido" });
+          }
+          if (user.numpost < 5) {
+            newPost.save(async (err, post) => {
+              if (err) {
+                console.log(err);
+                return res
+                  .status(400)
+                  .send({ message: "No se ha podido crear la publicación" });
+              } else {
+                await User.findByIdAndUpdate(user._id, {
+                  $inc: { numpost: 1 },
+                });
+                return res.status(201).send(post);
+              }
+            });
+          }
         });
-      }
     });
 };
 
@@ -102,9 +119,9 @@ const getPost = (req, res) => {
     });
 };
 
-//obtiene todos los post
+//obtiene todos los post sin reportes mayores a 3
 const getPosts = (req, res) => {
-  Post.find({})
+  Post.find({ reports: { $lte: "3" } })
     .populate("user")
     .sort({ likes: -1 })
     .exec((err, posts) => {

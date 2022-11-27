@@ -8,7 +8,7 @@ dotenv.config();
 const commentRoutes = require("./routes/commentRoutes.js");
 const postRoutes = require("./routes/postRoutes.js");
 const userRoutes = require("./routes/userRoutes.js");
-const fileRoute = require("./routes/fileRoutes.js");
+const fileRoutes = require("./routes/fileRoutes.js");
 
 app.use(cors());
 app.use(express.json());
