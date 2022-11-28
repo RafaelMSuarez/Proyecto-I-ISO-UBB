@@ -2,7 +2,7 @@ const User = require("../models/user");
 
 // crear usuario
 const createUser = (req, res) => {
-  const { name, rol, rut, numcasa, email, desc, numpost , telefono} = req.body;
+  const { name, rol, rut, numcasa, email, desc, telefono} = req.body;
   const newUser = new User({
     name,
     rol,
@@ -10,7 +10,6 @@ const createUser = (req, res) => {
     numcasa,
     email,
     desc,
-    numpost,
     telefono
   });
   newUser.save((err, user) => {

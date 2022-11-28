@@ -42,7 +42,6 @@ const userSchema = new Schema(
     },
     numpost: {
       type: Number,
-      required: true,
       default: 0,
     },
     banned: {

@@ -18,11 +18,11 @@ const commentSchema = new Schema({
   },
   likes: {
     type: Number,
-    required: true,
+    default: 0,
   },
   dislikes: {
     type: Number,
-    required: true,
+    default: 0,
   },
 }, {timestamps: true});
 
