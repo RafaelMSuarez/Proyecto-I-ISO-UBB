@@ -2,13 +2,11 @@ const Comment = require("../models/comments");
 
 //crear un comentario
 const createComment = (req, res) => {
-  const { user, title, desc, likes, dislike } = req.body;
+  const { user, post, desc } = req.body;
   const newComment = new Comment({
     user,
     post,
     desc,
-    likes,
-    dislike,
   });
   newComment.save((error, comment) => {
     if (error) {
