@@ -1,0 +1,206 @@
+Box sizing rules *,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Remove default margin */
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+figure,
+blockquote,
+dl,
+dd {
+  margin: 0;
+}
+
+/* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */
+ul[role="list"],
+ol[role="list"] {
+  list-style: none;
+}
+
+/* Set core root defaults */
+html:focus-within {
+  scroll-behavior: smooth;
+}
+
+/* Set core body defaults */
+body {
+  min-height: 100vh;
+  text-rendering: optimizeSpeed;
+  line-height: 1.5;
+}
+
+/* A elements that don't have a class get default styles */
+a:not([class]) {
+  text-decoration-skip-ink: auto;
+}
+
+/* Make images easier to work with */
+img,
+picture {
+  max-width: 100%;
+  /* display: block; */
+}
+
+/* Inherit fonts for inputs and buttons */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+/* Remove all animations, transitions and smooth scroll for people that prefer not to see them */
+@media (prefers-reduced-motion: reduce) {
+  html:focus-within {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* body {
+  background-color: #1e1f1f;
+} */
+.tarjeta-anuncio {
+  max-width: 24rem;
+  color: #e0e3e3;
+  background-color: #393939;
+  border-radius: 10px;
+  box-shadow: 0px 2px 4px 1px rgba(0, 0, 0, 0.35);
+}
+
+.tarjeta-anuncio:hover {
+  background-color: #3e3e3e;
+}
+
+.head {
+  padding: 15px;
+}
+
+.nombre-box {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.75rem;
+  font-weight: bold;
+}
+
+.separator {
+  height: 2px;
+  width: 100%;
+  background-color: #ffb4ab;
+  margin-top: 15px;
+}
+
+.titulo {
+  font-size: 1.5rem;
+}
+
+.cuerpo {
+  margin-inline: 15px;
+  text-align: justify;
+}
+
+.imagen {
+  max-width: 100%;
+}
+
+.reactions {
+  padding: 5px;
+  display: flex;
+  font-weight: bold;
+  justify-content: space-between;
+}
+
+.reactions div {
+  align-items: center;
+}
+
+.like {
+  border-radius: 5px;
+}
+
+.dislike {
+  border-radius: 5px;
+}
+
+.comments {
+  border-radius: 5px;
+}
+
+.like div:hover {
+  color: #9fe8e8;
+}
+
+.like:active {
+  background-color: #484b4b;
+}
+
+.dislike div:hover {
+  color: #9fe8e8;
+}
+
+.dislike:active {
+  background-color: #484b4b;
+}
+
+.comments div:hover {
+  color: #9fe8e8;
+}
+
+.comments:active {
+  background-color: #484b4b;
+}
+
+.boton {
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 40px;
+}
+
+.boton-comen {
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  width: 160px;
+  height: 40px;
+}
+
+.icono {
+  margin-right: 5px;
+}
+
+.my-masonry-grid {
+  display: -webkit-box; /* Not needed if autoprefixing */
+  display: -ms-flexbox; /* Not needed if autoprefixing */
+  display: flex;
+  margin-left: -30px; /* gutter size offset */
+  width: auto;
+}
+.my-masonry-grid_column {
+  padding-left: 30px; /* gutter size */
+  background-clip: padding-box;
+}
+
+/* Style your items */
+.my-masonry-grid_column > div {
+  /* change div to reference your elements you put in <Masonry> */
+  margin-bottom: 0px;
+}
