@@ -17,7 +17,7 @@ const postSchema = new Schema(
       type: String,
       required: true,
       minLength: 1,
-      maxLength: 200,
+      maxLength: 1500,
     },
     likes: {
       type: Number,
@@ -35,12 +35,8 @@ const postSchema = new Schema(
       type: Number,
       default: 0,
     },
-    lifeTime: {
-      type: Number,
-      required: true,
-    },
   },
-  { timestamps: true }
+  { timestamps: true, expires: 60 }
 );
 
 module.exports = mongoose.model("post", postSchema);

@@ -2,28 +2,21 @@ import {
   IconButton,
   Flex,
   Box,
-  VStack,
   useDisclosure,
   Icon,
   HStack,
   Text,
   Divider,
-  Center,
   Avatar,
   Menu,
   MenuButton,
   MenuList,
   MenuItem,
-  MenuItemOption,
-  MenuGroup,
-  MenuOptionGroup,
-  MenuDivider,
-  Stack,
 } from "@chakra-ui/react";
 import React from "react";
 import { MdClose, MdMenu } from "react-icons/md";
 
-const Header = ({}) => {
+const Navbar = ({}) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <Box
@@ -46,7 +39,6 @@ const Header = ({}) => {
           <Avatar name="Rafael" />
           <Text fontWeight={"bold"}>Rafael Martínez</Text>
         </HStack>
-
         <HStack alignItems={"center"} spacing={"1rem"}>
           <HStack
             alignItems={"center"}
@@ -58,36 +50,44 @@ const Header = ({}) => {
             <Flex h={"4rem"} alignItems={"center"} py={"1.2rem"}>
               <Divider
                 orientation={"vertical"}
-                borderColor={"#ffb4ab"}
+                // borderColor={"#ffb4ab"}
+                borderColor={"#9FE8E8"}
                 border={"1px"}
               />
             </Flex>
-            <Text _hover={{ color: "#9FE8E8" }}>Publicaciones</Text>
+            <Text _hover={{ color: "#9FE8E8" }}>Mis Publicaciones</Text>
           </HStack>
-          <IconButton
-            icon={isOpen ? <Icon as={MdClose} /> : <Icon as={MdMenu} />}
-            aria-label={"Abrir menú"}
-            variant={"ghost"}
-            fontWeight={"bold"}
-            fontSize={"1.5rem"}
-            _hover={{ color: "#9FE8E8", bg: "#484b4b" }}
-            _active={{ bg: "#484b4b" }}
-            display={{ md: "none" }}
-            onClick={isOpen ? onClose : onOpen}
-          />
+          <Menu>
+            <MenuButton
+              as={IconButton}
+              icon={isOpen ? <Icon as={MdClose} /> : <Icon as={MdMenu} />}
+              variant={"ghost"}
+              fontWeight={"bold"}
+              fontSize={"1.5rem"}
+              _hover={{ color: "#9FE8E8", bg: "#484b4b" }}
+              _active={{ bg: "#484b4b" }}
+              display={{ md: "none" }}
+              onClick={isOpen ? onClose : onOpen}
+            />
+            <MenuList
+              mt={"0.45rem"}
+              directi
+              bg={"#1E1E1E"}
+              border={"#9FE8E8 1px solid"}
+              borderRadius={"5px 0px 5px 5px"}
+            >
+              <MenuItem bg={""} _hover={{ color: "#9FE8E8", bg: "#262626" }}>
+                Inicio
+              </MenuItem>
+              <MenuItem bg={""} _hover={{ color: "#9FE8E8", bg: "#262626" }}>
+                Mis Publicaciones
+              </MenuItem>
+            </MenuList>
+          </Menu>
         </HStack>
       </Flex>
-
-      {isOpen ? (
-        <Box pb={"1rem"} display={{ md: "none" }}>
-          <VStack as={"nav"} alignItems={"end"} pr={"1.8rem"}>
-            <Text _hover={{ color: "#9FE8E8" }}>Inicio</Text>
-            <Text _hover={{ color: "#9FE8E8" }}>Publicaciones</Text>
-          </VStack>
-        </Box>
-      ) : null}
     </Box>
   );
 };
 
-export default Header;
+export default Navbar;

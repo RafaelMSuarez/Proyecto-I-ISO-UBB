@@ -3,13 +3,12 @@ const User = require("../models/user.js");
 
 //crea un post
 const createPost = async (req, res) => {
-  const { user, title, desc, lifeTime } =
+  const { user, title, desc} =
     req.body;
   const newPost = new Post({
     user,
     title,
     desc,
-    lifeTime,
   });
   Post.findOne({ title: newPost.title })
     .lean()

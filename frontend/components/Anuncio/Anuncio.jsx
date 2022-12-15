@@ -17,7 +17,7 @@ import {
 
 import { MdThumbUp, MdThumbDown, MdChat } from "react-icons/md";
 
-const Anuncio = ({ titulo }) => {
+const Anuncio = ({ title, name, desc, likes, dislikes, numComments, numCasa, hora }) => {
   return (
     <Card
       rounded={"10px"}
@@ -33,22 +33,19 @@ const Anuncio = ({ titulo }) => {
           fontSize={"1.75rem"}
           fontWeight="bold"
         >
-          <Text>Rafael Martínez</Text>
-          <Text>19</Text>
+          <Text>{name}</Text>
+          <Text>{numCasa}</Text>
         </Flex>
-        <Text fontSize={"1rem"}>3 h</Text>
+        <Text fontSize={"1rem"} fontStyle={"italic"} color={"grey"}>{hora}</Text>
       </CardHeader>
       <Center px={"15px"}>
-        <Divider borderColor={"#ffb4ab"} border={"1px"} />
+        <Divider borderColor={"#9FE8E8"} border={"1px"} />
       </Center>
-      <CardBody>
+      <CardBody px={"15px"}>
         <Stack>
-          <Text fontSize={"1.5rem"}>{titulo}</Text>
+          <Text fontSize={"1.5rem"}>{title}</Text>
           <Text fontSize={"1rem"} textAlign={"justify"}>
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Veritatis
-            ab consequuntur quidem assumenda impedit ratione autem repudiandae
-            incidunt? Veritatis exercitationem ratione harum cumque explicabo
-            perferendis similique itaque, illo quam quidem?
+            {desc}
           </Text>
         </Stack>
       </CardBody>
@@ -66,7 +63,7 @@ const Anuncio = ({ titulo }) => {
             variant={"ghost"}
             leftIcon={<Icon as={MdThumbUp} />}
           >
-            4
+            {likes}
           </Button>
           <Button
             _hover={{ color: "#9FE8E8" }}
@@ -74,7 +71,7 @@ const Anuncio = ({ titulo }) => {
             variant={"ghost"}
             leftIcon={<Icon as={MdThumbDown} />}
           >
-            1
+            {dislikes}
           </Button>
         </HStack>
         <Button
@@ -83,7 +80,7 @@ const Anuncio = ({ titulo }) => {
           variant={"ghost"}
           leftIcon={<Icon as={MdChat} />}
         >
-          3 comentarios
+          {numComments} comentarios
         </Button>
       </CardFooter>
     </Card>
