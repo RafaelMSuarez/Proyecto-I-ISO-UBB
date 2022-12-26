@@ -2,7 +2,7 @@
 
 ### DISEÑO PAGINAS:
 
-- [X] Página de login, con página de bienvenida (en proceso)
+- [X] Página de login, con página de bienvenida (faltaria lo de linkear la pagina, el "iniciar sesion")
 - [X] Página principal, con todos los anuncios (en proceso)
 - [X] Página con los anuncios reportados
 - [X] Página con los anuncios del vecino logeado.
