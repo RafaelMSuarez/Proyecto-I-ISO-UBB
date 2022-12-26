@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Card,
   CardHeader,
@@ -12,12 +11,57 @@ import {
   Button,
   HStack,
   Center,
-  Icon
+  Icon,
+  IconButton,
 } from "@chakra-ui/react";
 
-import { MdThumbUp, MdThumbDown, MdChat } from "react-icons/md";
+import { MdThumbUp, MdThumbDown, MdChat, MdReport } from "react-icons/md";
+import { usePostsContext } from "../../hooks/usePostsContext";
+import { useState, useEffect, useRef } from "react";
+import { darLike, quitarLike } from "../../data/likes";
+import { useUserStore } from "../../store/userStore";
+import ReportAlert from "../Alerts/ReportAlert";
 
-const Anuncio = ({ title, name, desc, likes, dislikes, numComments, numCasa, hora }) => {
+const Anuncio = ({
+  postId,
+  title,
+  name,
+  desc,
+  numLikes,
+  numComments,
+  numCasa,
+  hora,
+  img,
+  isLiked,
+  isReported,
+}) => {
+  const [like, setLike] = useState(isLiked);
+  const [report, setReport] = useState(isReported);
+  const [numdeLikes, setNumdeLikes] = useState(numLikes);
+  const userId = useUserStore((state) => state.userId);
+
+  const pressLike = (postId) => {
+    if (like) {
+      setNumdeLikes(numdeLikes - 1);
+      const res = quitarLike(postId, userId);
+      if (res.status === 200) {
+      }
+    } else {
+      setNumdeLikes(numdeLikes + 1);
+      const res = darLike(postId, userId);
+      if (res.status === 200) {
+      }
+    }
+    setLike(!like);
+  };
+
+  const pressReport = (postId) => {
+    if (report) {
+      return;
+    }
+    setReport(true);
+  };
+
   return (
     <Card
       rounded={"10px"}
@@ -36,7 +80,9 @@ const Anuncio = ({ title, name, desc, likes, dislikes, numComments, numCasa, hor
           <Text>{name}</Text>
           <Text>{numCasa}</Text>
         </Flex>
-        <Text fontSize={"1rem"} fontStyle={"italic"} color={"grey"}>{hora}</Text>
+        <Text fontSize={"1rem"} fontStyle={"italic"} color={"grey"}>
+          {hora}
+        </Text>
       </CardHeader>
       <Center px={"15px"}>
         <Divider borderColor={"#9FE8E8"} border={"1px"} />
@@ -49,12 +95,7 @@ const Anuncio = ({ title, name, desc, likes, dislikes, numComments, numCasa, hor
           </Text>
         </Stack>
       </CardBody>
-      <Image
-        objectFit={"cover"}
-        alt="imagen"
-        maxW={"100%"}
-        src="https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/close-up-of-pizza-on-table-royalty-free-image-995467932-1559051477.jpg"
-      />
+      <Image objectFit={"cover"} alt="imagen" maxW={"100%"} src={img} />
       <CardFooter justify={"space-between"} p={"5px"}>
         <HStack spacing={"0"}>
           <Button
@@ -62,26 +103,22 @@ const Anuncio = ({ title, name, desc, likes, dislikes, numComments, numCasa, hor
             _active={{ bg: "#484b4b" }}
             variant={"ghost"}
             leftIcon={<Icon as={MdThumbUp} />}
+            isActive={like}
+            disabled={report}
+            onClick={() => pressLike(postId)}
           >
-            {likes}
+            {numdeLikes == 0 ? "" : numdeLikes}
           </Button>
           <Button
             _hover={{ color: "#9FE8E8" }}
             _active={{ bg: "#484b4b" }}
             variant={"ghost"}
-            leftIcon={<Icon as={MdThumbDown} />}
+            leftIcon={<Icon as={MdChat} />}
           >
-            {dislikes}
+            {numComments} comentarios
           </Button>
         </HStack>
-        <Button
-          _hover={{ color: "#9FE8E8" }}
-          _active={{ bg: "#484b4b" }}
-          variant={"ghost"}
-          leftIcon={<Icon as={MdChat} />}
-        >
-          {numComments} comentarios
-        </Button>
+        <ReportAlert isReported={report} pressReport={pressReport} />
       </CardFooter>
     </Card>
   );

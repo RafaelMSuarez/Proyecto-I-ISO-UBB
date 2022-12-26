@@ -20,14 +20,26 @@ const postSchema = new Schema(
       maxLength: 1500,
     },
     likes: {
-      type: Number,
-      default: 0,
+      type: [Schema.ObjectId],
+      ref: "like",
     },
     dislikes: {
+      type: [Schema.ObjectId],
+      ref: "dislike",
+    },
+    reports: {
+      type: [Schema.ObjectId],
+      ref: "report",
+    },
+    numReports: {
       type: Number,
       default: 0,
     },
-    reports: {
+    numLikes: {
+      type: Number,
+      default: 0,
+    },
+    numDislikes: {
       type: Number,
       default: 0,
     },
@@ -36,7 +48,7 @@ const postSchema = new Schema(
       default: 0,
     },
   },
-  { timestamps: true, expires: 60 }
+  { timestamps: true }
 );
 
 module.exports = mongoose.model("post", postSchema);

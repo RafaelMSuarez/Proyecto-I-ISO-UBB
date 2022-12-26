@@ -3,8 +3,7 @@ const User = require("../models/user.js");
 
 //crea un post
 const createPost = async (req, res) => {
-  const { user, title, desc} =
-    req.body;
+  const { user, title, desc } = req.body;
   const newPost = new Post({
     user,
     title,
@@ -73,7 +72,7 @@ const updatePost = (req, res) => {
     if (!post) {
       return res.status(404).send({ message: "No se encontro la publicación" });
     }
-    return res.status(200).send({ message: "Publicación modificado" });
+    return res.status(200).send({ message: "Publicación modificada" });
   });
 };
 
@@ -120,9 +119,9 @@ const getPost = (req, res) => {
 
 //obtiene todos los post sin reportes mayores a 3
 const getPosts = (req, res) => {
-  Post.find({ reports: { $lte: "3" } })
+  Post.find({ numReports: { $lte: "3" } })
     .populate("user")
-    .sort({ likes: -1 })
+    .sort({ numLikes: -1 })
     .exec((err, posts) => {
       if (err) {
         return res
@@ -130,19 +129,44 @@ const getPosts = (req, res) => {
           .send({ message: "No se pudo realizar la busqueda" });
       }
       if (posts.length === 0) {
-        return res
-          .status(404)
-          .send({ message: "No se encontraron publicaciones" });
+        return res.status(200).send([]);
       }
       return res.status(200).send(posts);
     });
 };
 
+//obtiene todos los post de un usuario
+const getUserPosts = (req, res) => {
+  const { userId } = req.params;
+  User.findById(userId, (err, user) => {
+    if (err) {
+      return res.status(400).send({ message: "Error al encontrar usuario" });
+    }
+    if (!user) {
+      return res.status(404).send({ message: "Usuario no encontrado" });
+    }
+    Post.find({ user: user._id })
+      .populate("user")
+      .sort({ numLikes: -1 })
+      .exec((err, posts) => {
+        if (err) {
+          return res
+            .status(400)
+            .send({ message: "No se pudo realizar la busqueda" });
+        }
+        if (posts.length === 0) {
+          return res.status(200).send([]);
+        }
+        return res.status(200).send(posts);
+      });
+  });
+};
+
 //obtiene todos los post con reportes mayores a 1
 const getReportedPosts = (req, res) => {
-  Post.find({ reports: { $gte: "1" } })
+  Post.find({ numReports: { $gte: "1" } })
     .populate("user")
-    .sort({ reports: -1 })
+    .sort({ numReports: -1 })
     .exec((err, posts) => {
       if (err) {
         return res
@@ -150,9 +174,7 @@ const getReportedPosts = (req, res) => {
           .send({ message: "No se pudo realizar la busqueda" });
       }
       if (posts.length === 0) {
-        return res
-          .status(404)
-          .send({ message: "No se encontraron publicaciones reportadas" });
+        return res.status(200).send([]);
       }
       return res.status(200).send(posts);
     });
@@ -164,5 +186,6 @@ module.exports = {
   deletePost,
   getPost,
   getPosts,
+  getUserPosts,
   getReportedPosts,
 };

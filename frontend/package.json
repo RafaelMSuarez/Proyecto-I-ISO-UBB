@@ -15,11 +15,13 @@
     "axios": "^1.2.1",
     "eslint": "8.28.0",
     "eslint-config-next": "13.0.6",
-    "framer-motion": "^6",
+    "framer-motion": "^7.10.2",
+    "js-cookie": "^3.0.1",
     "next": "13.0.6",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-icons": "^4.7.1",
-    "react-masonry-css": "^1.0.16"
+    "react-masonry-css": "^1.0.16",
+    "zustand": "^4.1.5"
   }
 }

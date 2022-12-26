@@ -1,5 +1,9 @@
-import HomePage from "./HomePage";
+import LoginPage from "./LoginPage";
 
 export default function Home() {
-  return HomePage();
+  return (
+    <div>
+      <LoginPage />
+    </div>
+  );
 }

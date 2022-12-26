@@ -1,6 +1,7 @@
 const express = require("express");
 const api = express.Router();
 const postController = require("../controllers/postController");
+const auth = require("../middlewares/auth");
 
 //post
 api.post("/post", postController.createPost);
@@ -13,7 +14,8 @@ api.delete("/post/delete/:id", postController.deletePost);
 
 //get
 api.get("/post/find/:id", postController.getPost);
-api.get("/posts", postController.getPosts);
+api.get("/posts", auth.auth, postController.getPosts);
+api.get("/userposts/:userId", auth.auth, postController.getUserPosts);
 api.get("/postsreported", postController.getReportedPosts);
 
 module.exports = api;

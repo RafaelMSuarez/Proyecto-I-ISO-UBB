@@ -81,7 +81,7 @@ const getComments = (req, res) => {
         .send({ message: "No se pudo realizar la busqueda" });
     }
     if (comments.length === 0) {
-      return res.status(404).send({ message: "No se encontraron comentarios" });
+      return res.status(200).send([]);
     }
     return res.status(200).send(comments);
   });
