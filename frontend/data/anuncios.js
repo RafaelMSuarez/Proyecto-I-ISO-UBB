@@ -14,7 +14,25 @@ const getUserPosts = async (token, userId) => {
   return res;
 };
 
+const deletePost = async (postId) => {
+  const res = await axios.delete(`${process.env.API_URL}/post/delete`, {
+    data: { postId },
+  });
+  return res;
+};
+
+const newPost = async (user, title, desc) => {
+  const res = await axios.post(`${process.env.API_URL}/post`, {
+    user,
+    title,
+    desc,
+  });
+  return res;
+};
+
 module.exports = {
   getPosts,
   getUserPosts,
+  deletePost,
+  newPost,
 };

@@ -43,8 +43,8 @@ const useHasHydrated = () => {
 };
 
 export default function HomePage({ anuncios, likesD }) {
-  // const [posts, setPosts] = useState(anuncios);
   const { posts, dispatch } = usePostsContext();
+  // const [posts, setPosts] = useState(anuncios);
   const userName = useUserStore((state) => state.name);
   const [likes] = useState(likesD);
   const hasHydrated = useHasHydrated();
@@ -89,10 +89,15 @@ export default function HomePage({ anuncios, likesD }) {
     }
   };
 
-  const breakpoints = {
-    default: 3,
-    1100: 2,
-    700: 1,
+  const breakpoints = () => {
+    if (posts && posts.length == 1) {
+      return 1;
+    }
+    if (posts && posts.length == 2) {
+      return { default: 2, 766: 1 };
+    } else {
+      return { default: 3, 1100: 2, 766: 1 };
+    }
   };
 
   return (
@@ -101,9 +106,7 @@ export default function HomePage({ anuncios, likesD }) {
       <Center>
         <Box mt={"30px"} px={"30px"}>
           <Masonry
-            breakpointCols={
-              posts ? (posts.length == 1 ? 1 : breakpoints) : breakpoints
-            }
+            breakpointCols={breakpoints()}
             className="my-masonry-grid"
             columnClassName="my-masonry-grid_column"
           >

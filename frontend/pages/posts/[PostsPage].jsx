@@ -1,6 +1,6 @@
-import { Box, Center } from "@chakra-ui/react";
+import { Box, Center, Text, Button, IconButton, Icon } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
-import Anuncio from "../../components/Anuncio/Anuncio";
+import AnuncioUser from "../../components/Anuncio/AnuncioUser";
 import Masonry from "react-masonry-css";
 import Navbar from "../../components/Navbar/Navbar";
 import hora from "../../utils/hora";
@@ -9,6 +9,8 @@ import { useUserStore } from "../../store/userStore";
 import { likesData } from "../../data/likes";
 import { useRouter } from "next/router";
 import { usePostsContext } from "../../hooks/usePostsContext";
+import { MdAdd, MdDelete } from "react-icons/md";
+import NewPostButton from "../../components/Alerts/NewPost";
 
 export const getServerSideProps = async (context) => {
   try {
@@ -45,13 +47,23 @@ const useHasHydrated = () => {
   return hasHydrated;
 };
 
+const getPosts = async () => {
+  const res = await getUserPosts(
+    // context.req.headers.cookie,
+    context.params.PostsPage
+  );
+  if (res.status === 200) {
+    console.log("eliminado");
+    return res.data;
+  }
+};
+
 export default function HomePage({ anuncios, likesD }) {
-  // const [posts] = useState(anuncios);
   const { posts, dispatch } = usePostsContext();
+  // const [posts, setPosts] = useState(anuncios);
   const userName = useUserStore((state) => state.name);
   const [likes] = useState(likesD);
   const hasHydrated = useHasHydrated();
-  // const userRut = useUserStore((state) => state.rut);
   const router = useRouter();
 
   useEffect(() => {
@@ -70,13 +82,14 @@ export default function HomePage({ anuncios, likesD }) {
   }
 
   const tarjetas = () => {
-    if (posts.length > 0) {
+    if (posts && posts.length > 0) {
       return posts.map((post) => {
         return (
           <div key={post._id}>
-            <Anuncio
-              // name={post.user.name}
-              // numCasa={post.user.numcasa}
+            <AnuncioUser
+              name={post.user.name}
+              numCasa={post.user.numcasa}
+              postId={post._id}
               title={post.title}
               desc={post.desc}
               numLikes={post.numLikes}
@@ -84,7 +97,7 @@ export default function HomePage({ anuncios, likesD }) {
               numComments={post.numComments}
               hora={hora(post.createdAt)}
               isLiked={isLiked(post._id, router.query.HomePage)}
-            ></Anuncio>
+            ></AnuncioUser>
             ;
           </div>
         );
@@ -92,26 +105,43 @@ export default function HomePage({ anuncios, likesD }) {
     }
   };
 
-  const breakpoints = {
-    default: 3,
-    1100: 2,
-    700: 1,
+  const breakpoints = () => {
+    if (posts && posts.length == 1) {
+      return 1;
+    }
+    if (posts && posts.length == 2) {
+      return { default: 2, 750: 1 };
+    } else {
+      return { default: 3, 1100: 2, 750: 1 };
+    }
   };
 
   return (
     <div>
       <Navbar nombre={hasHydrated && userName ? userName : ""}></Navbar>
       <Center>
-        <Box mt={"30px"} px={"30px"}>
-          <Masonry
-            breakpointCols={posts.length == 1 ? 1 : breakpoints}
-            className="my-masonry-grid"
-            columnClassName="my-masonry-grid_column"
+        {posts && posts.length > 0 ? (
+          <Box mt={"30px"} px={"30px"}>
+            <Masonry
+              breakpointCols={breakpoints()}
+              className="my-masonry-grid"
+              columnClassName="my-masonry-grid_column"
+            >
+              {tarjetas()}
+            </Masonry>
+          </Box>
+        ) : (
+          <Text
+            mt={"4rem"}
+            fontStyle={"italic"}
+            fontSize={"1.5rem"}
+            color={"whiteAlpha.600"}
           >
-            {tarjetas()}
-          </Masonry>
-        </Box>
+            No posee publicaciones
+          </Text>
+        )}
       </Center>
+      <NewPostButton />
     </div>
   );
 }

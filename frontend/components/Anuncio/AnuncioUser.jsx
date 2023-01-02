@@ -20,23 +20,22 @@ import { usePostsContext } from "../../hooks/usePostsContext";
 import { useState, useEffect, useRef } from "react";
 import { darLike, quitarLike } from "../../data/likes";
 import { useUserStore } from "../../store/userStore";
-import ReportAlert from "../Alerts/ReportAlert";
+import DeleteAlert from "../Alerts/DeleteAlert";
 
-const Anuncio = ({
+const AnuncioUser = ({
   postId,
   title,
-  name,
   desc,
   numLikes,
   numComments,
-  numCasa,
   hora,
   img,
   isLiked,
   isReported,
+  refresh,
 }) => {
   const [like, setLike] = useState(isLiked);
-  const [report, setReport] = useState(isReported);
+  // const [report, setReport] = useState(isReported);
   const [numdeLikes, setNumdeLikes] = useState(numLikes);
   const userId = useUserStore((state) => state.userId);
 
@@ -55,13 +54,6 @@ const Anuncio = ({
     setLike(!like);
   };
 
-  const pressReport = (postId) => {
-    if (report) {
-      return;
-    }
-    setReport(true);
-  };
-
   return (
     <Card
       rounded={"10px"}
@@ -72,14 +64,9 @@ const Anuncio = ({
       _hover={{ bg: "#393939" }}
     >
       <CardHeader p={"15px"}>
-        <Flex
-          justifyContent={"space-between"}
-          fontSize={"1.75rem"}
-          fontWeight="bold"
-        >
-          <Text>{name}</Text>
-          <Text>{numCasa}</Text>
-        </Flex>
+        <Text fontSize={"1.75rem"} fontWeight="bold">
+          {title}
+        </Text>
         <Text fontSize={"1rem"} fontStyle={"italic"} color={"grey"}>
           {hora}
         </Text>
@@ -89,7 +76,6 @@ const Anuncio = ({
       </Center>
       <CardBody px={"15px"}>
         <Stack>
-          <Text fontSize={"1.5rem"}>{title}</Text>
           <Text fontSize={"1rem"} textAlign={"justify"}>
             {desc}
           </Text>
@@ -104,7 +90,6 @@ const Anuncio = ({
             variant={"ghost"}
             leftIcon={<Icon as={MdThumbUp} />}
             isActive={like}
-            disabled={report}
             onClick={() => pressLike(postId)}
           >
             {numdeLikes}
@@ -118,10 +103,10 @@ const Anuncio = ({
             {numComments} comentarios
           </Button>
         </HStack>
-        <ReportAlert isReported={report} pressReport={pressReport} />
+        <DeleteAlert postId={postId} />
       </CardFooter>
     </Card>
   );
 };
 
-export default Anuncio;
+export default AnuncioUser;

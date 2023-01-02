@@ -7,6 +7,7 @@ import {
   Input,
   Button,
   Heading,
+  Center,
 } from "@chakra-ui/react";
 
 import { login } from "../data/user";
@@ -54,18 +55,28 @@ const LoginPage = () => {
     }
   };
   return (
-    <Container maxW={"container.md"}>
-      <VStack color={"white"} my={"40px"}>
-        <Heading>Inicio de sesión</Heading>
-        <FormControl>
-          <FormLabel>RUT</FormLabel>
-          <Input name="rut" onChange={handleChange} />
-        </FormControl>
-      </VStack>
-      <Button disabled={isLoading} onClick={onSubmit} my={"40px"}>
-        Iniciar Sesión
-      </Button>
-    </Container>
+    <Center>
+      <Container
+        maxW={"xl"}
+        border={"white solid 1px"}
+        borderRadius={"10px"}
+        m={"25px"}
+        p={"2rem"}
+      >
+        <VStack color={"white"} my={"40px"}>
+          <Heading>Inicio de sesión</Heading>
+          <FormControl>
+            <FormLabel>RUT</FormLabel>
+            <Input name="rut" onChange={handleChange} />
+          </FormControl>
+        </VStack>
+        <Center>
+          <Button disabled={isLoading} onClick={onSubmit} my={"40px"}>
+            Iniciar Sesión
+          </Button>
+        </Center>
+      </Container>
+    </Center>
   );
 };
 

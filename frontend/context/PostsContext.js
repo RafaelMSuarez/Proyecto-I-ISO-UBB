@@ -9,9 +9,14 @@ export const postsReducer = (state, action) => {
         posts: action.payload,
       };
 
-    case "create_posts":
+    case "new_post":
       return {
         posts: [action.payload, ...state.posts],
+      };
+
+    case "delete_post":
+      return {
+        posts: state.posts.filter((p) => p._id !== action.payload),
       };
 
     default:

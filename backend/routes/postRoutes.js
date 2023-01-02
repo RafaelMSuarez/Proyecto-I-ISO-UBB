@@ -10,7 +10,7 @@ api.post("/post", postController.createPost);
 api.put("/post/update/:id", postController.updatePost);
 
 //delete
-api.delete("/post/delete/:id", postController.deletePost);
+api.delete("/post/delete", postController.deletePost);
 
 //get
 api.get("/post/find/:id", postController.getPost);

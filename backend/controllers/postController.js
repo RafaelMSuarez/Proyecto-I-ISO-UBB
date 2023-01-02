@@ -52,7 +52,7 @@ const createPost = async (req, res) => {
                 await User.findByIdAndUpdate(user._id, {
                   $inc: { numpost: 1 },
                 });
-                return res.status(201).send(post);
+                return res.status(200).send(post);
               }
             });
           }
@@ -78,8 +78,8 @@ const updatePost = (req, res) => {
 
 //elimina un post
 const deletePost = (req, res) => {
-  const { id } = req.params;
-  Post.findByIdAndDelete(id, async (err, post) => {
+  const { postId } = req.body;
+  Post.findByIdAndDelete(postId, async (err, post) => {
     if (err) {
       return res
         .status(400)
